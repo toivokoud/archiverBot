@@ -38,7 +38,6 @@ namespace ArchiverBot
 					authToken: File.ReadAllText("/Users/software/Documents/confluence_api_token.txt")
 				);
 
-			Console.WriteLine("my sanity is intact");
 			var token = File.ReadAllText("/Users/software/Documents/discord_myFirstBot_apikey.txt"); 
 
 			await _client.LoginAsync(TokenType.Bot, token);
