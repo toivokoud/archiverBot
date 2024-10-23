@@ -15,7 +15,14 @@ namespace ArchiverBot
 
 		public async Task RunBotAsync()
 		{
-			_client = new DiscordSocketClient();
+			var config = new DiscordSocketConfig
+			{
+				GatewayIntents = GatewayIntents.Guilds | 
+				                 GatewayIntents.GuildMessages | 
+				                 GatewayIntents.MessageContent
+			};
+
+			_client = new DiscordSocketClient(config);
 
 			_client.Log += Log;
 			_client.MessageReceived += MessageReceived;
@@ -26,7 +33,6 @@ namespace ArchiverBot
 			await _client.LoginAsync(TokenType.Bot, token);
 			await _client.StartAsync();
 
-			// Block this task until the program is closed.
 			await Task.Delay(-1);
 		}
 
