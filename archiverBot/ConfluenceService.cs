@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+
 namespace ArchiverBot;
 
 using System;
@@ -14,17 +16,17 @@ public class ConfluenceService
     private readonly string _pageId;
     private readonly string _authToken;
 
-    public ConfluenceService(string baseUrl, string spaceKey, string pageId, string authToken)
+    public ConfluenceService(string baseUrl, string spaceKey, string pageId, string apiToken, string email)
     {
         _httpClient = new HttpClient();
         _baseUrl = baseUrl;
         _spaceKey = spaceKey;
         _pageId = pageId;
-        _authToken = authToken;
+        _authToken = apiToken;
         
-        var byteArray = Encoding.ASCII.GetBytes($"email:{_authToken}"); 
-        _httpClient.DefaultRequestHeaders.Authorization = 
-            new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+        var credentials = $"{email}:{apiToken}";
+        var base64Credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(credentials));
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
     }
 
     public async Task PostToConfluence(string title, string content)

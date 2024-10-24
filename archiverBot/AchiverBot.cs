@@ -28,15 +28,18 @@ namespace ArchiverBot
 			_client.Log += Log;
 			_client.MessageReceived += MessageReceived;
 
-			const string PAGE_ID = "29425666";
-			const string SPACE_KEY = "KOUD";
+			const string PAGE_ID = "29786120";
+			const string SPACE_KEY = "~712020dd497edf2bfd4f298aa0bb26724fb49e";
 			const string BASE_URL = "https://koud-fi.atlassian.net/";
+			Console.WriteLine("Enter your email:");
+			var  email = Console.ReadLine();
 			_confluenceService = new ConfluenceService(
-					baseUrl: BASE_URL, 
-					spaceKey: SPACE_KEY, 
-					pageId: PAGE_ID,
-					authToken: File.ReadAllText("/Users/software/Documents/confluence_api_token.txt")
-				);
+				baseUrl: BASE_URL,
+				spaceKey: SPACE_KEY,
+				pageId: PAGE_ID,
+				apiToken: File.ReadAllText("/Users/software/Documents/confluence_api_token.txt"),
+				email: email
+			);
 
 			var token = File.ReadAllText("/Users/software/Documents/discord_myFirstBot_apikey.txt"); 
 
