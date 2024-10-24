@@ -14,7 +14,7 @@ namespace ArchiverBot
 			await program.RunBotAsync();
 		}
 
-		public async Task RunBotAsync()
+		async Task RunBotAsync()
 		{
 			var config = new DiscordSocketConfig
 			{
