@@ -3,14 +3,14 @@ using Discord.WebSocket;
 
 namespace ArchiverBot
 {
-	class Program
+	class AchiverBot
 	{
 		DiscordSocketClient _client;
 		ConfluenceService _confluenceService;
 
 		public static async Task Main(string[] args)
 		{
-			var program = new Program();
+			var program = new AchiverBot();
 			await program.RunBotAsync();
 		}
 
