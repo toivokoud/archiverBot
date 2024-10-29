@@ -1,7 +1,4 @@
-using System.Runtime.InteropServices.JavaScript;
-
 namespace ArchiverBot;
-
 using System.Net.Http.Headers;
 using System;
 using System.Net.Http;
@@ -42,11 +39,11 @@ public class ConfluenceService
             return;
         }
 
-        int newVersion = page.version.number + 1;
-        string prevContent = page.body.storage.value;
+        var newVersion = page.version.number + 1;
+        var prevContent = page.body.storage.value;
 
         // Concatenate the new content with the previous content
-        string aggregatedContent = $"{prevContent}<br/><br/>{content}{DateTime.Now}";
+        var aggregatedContent = $"{prevContent}<br/><br/>{content}{DateTime.Now}";
 
         var url = $"{_baseUrl}/wiki/rest/api/content/{_pageId}";
 
