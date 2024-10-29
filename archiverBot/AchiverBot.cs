@@ -31,17 +31,15 @@ namespace ArchiverBot
 			const string PAGE_ID = "29786120";
 			const string SPACE_KEY = "~712020dd497edf2bfd4f298aa0bb26724fb49e";
 			const string BASE_URL = "https://koud-fi.atlassian.net/";
-			Console.WriteLine("Enter your email:");
-			var  email = Console.ReadLine();
 			_confluenceService = new ConfluenceService(
 				baseUrl: BASE_URL,
 				spaceKey: SPACE_KEY,
 				pageId: PAGE_ID,
-				apiToken: File.ReadAllText("/Users/software/Documents/confluence_api_token.txt"),
-				email: email
+				apiToken: Environment.GetEnvironmentVariable("CONFLUENCE_API_TOKEN"),
+				email: Environment.GetEnvironmentVariable("EMAIL")
 			);
 
-			var token = File.ReadAllText("/Users/software/Documents/discord_myFirstBot_apikey.txt"); 
+			var token = Environment.GetEnvironmentVariable("ARCHIVER_BOT_TOKEN"); 
 
 			await _client.LoginAsync(TokenType.Bot, token);
 			await _client.StartAsync();
@@ -62,6 +60,8 @@ namespace ArchiverBot
 			if (message.Content.Contains("hello confluence"))
 			{
 				await _confluenceService.PostToConfluence("hello confluence", "hello hello");
+				await message.Channel.SendMessageAsync("hello ! sending hello to confluence as well");
+
 			}
 			if (message.Content.ToLower() == "!ping")
 			{
