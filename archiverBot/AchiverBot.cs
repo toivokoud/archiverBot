@@ -35,11 +35,11 @@ namespace ArchiverBot
 				baseUrl: BASE_URL,
 				spaceKey: SPACE_KEY,
 				pageId: PAGE_ID,
-				apiToken: File.ReadAllText("/Users/software/Documents/confluence_api_token.txt"),
-				email: File.ReadAllText("/Users/software/Documents/email.txt")
+				apiToken: Environment.GetEnvironmentVariable("CONFLUENCE_API_TOKEN"),
+				email: Environment.GetEnvironmentVariable("EMAIL")
 			);
 
-			var token = File.ReadAllText("/Users/software/Documents/discord_myFirstBot_apikey.txt"); 
+			var token = Environment.GetEnvironmentVariable("ARCHIVER_BOT_TOKEN"); 
 
 			await _client.LoginAsync(TokenType.Bot, token);
 			await _client.StartAsync();
