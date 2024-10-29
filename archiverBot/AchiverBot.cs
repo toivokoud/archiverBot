@@ -60,6 +60,8 @@ namespace ArchiverBot
 			if (message.Content.Contains("hello confluence"))
 			{
 				await _confluenceService.PostToConfluence("hello confluence", "hello hello");
+				await message.Channel.SendMessageAsync("hello ! sending hello to confluence as well");
+
 			}
 			if (message.Content.ToLower() == "!ping")
 			{
