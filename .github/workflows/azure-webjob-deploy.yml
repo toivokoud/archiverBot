@@ -1,0 +1,36 @@
+name: Deploy Discord Bot to Azure WebJob
+
+on:
+  push:
+    branches:
+      - main  # This triggers the workflow on pushes to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.x'  # Replace with your .NET version
+
+      - name: Build project
+        run: dotnet publish -c Release -o ./publish
+
+      - name: Zip published files
+        run: zip -r discord-bot.zip ./publish/*
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'archiverBot'  # Replace with your App Service name
+          package: ./discord-bot.zip
